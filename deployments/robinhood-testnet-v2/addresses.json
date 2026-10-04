@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 2,
+  "chainId": 46630,
+  "rpcUrl": "https://rpc.testnet.chain.robinhood.com",
+  "explorerUrl": "https://explorer.testnet.chain.robinhood.com",
+  "deployedAt": 1791054186,
+  "usdg": "0x812eCDfabbEdcD0A363feb3b4Ef6B75Cba644CbF",
+  "usdgDecimals": 6,
+  "stockTokens": {
+    "TSLA": "0xBBF9908Be059CaF7f0f54FC017B3695fb26acf0A",
+    "AMZN": "0xb02cD2F434Efe5370624285410d220b5Ffb0905A",
+    "NFLX": "0xdc903B751183f06393F4b4BbD512856577BC46E9",
+    "PLTR": "0xE469cfc89D045cF6848AC2eA7D5c3ba80B959057",
+    "AMD": "0xE279D54Ab95a8c1468e128ae27e92B22038Bc655",
+    "NVDA": "0xD0c81c063D7F5B9A9D64735dc9ed44D53DCBf160",
+    "TSMC": "0xA5E5662951D9D4ED2ce91E2Ea48348022fC29207",
+    "MSFT": "0xC2eEcF5C0928b950e6274ffbb32579250a775a72",
+    "GOOGL": "0x90D4deD5f9a09Dc0c6f551E2f2E9102D35a9287b",
+    "RKLB": "0x85b84597D57f8561be7702fDced8431eCE369B8a",
+    "ISRG": "0xb19E0f1276d9c561158F676eE71D82eC22D5a600",
+    "XOM": "0x9D354460f59348F286FaE84c4C3679c890dD0038",
+    "ENPH": "0x408921d41b292c220c127b80FE7082CBF11f4955"
+  },
+  "priceOracles": {
+    "TSLA": "0x6FFba15AB744668189a782e14657B2211cB305aC",
+    "AMZN": "0x6896CBc78e660BCB0E5824AEF59E2e2793A92578",
+    "NFLX": "0x86D2756161e5D5071429a353D9C1BD3194A29799",
+    "PLTR": "0x8470b01497838475a50dc344EE0094c0AeFA340C",
+    "AMD": "0x3133AeD81D9414e3EE7BFec216F7d100b4EbD87D",
+    "USDG": "0xf5Fc94D74441Ec01C8CE8B550A6bDc5f488252bD",
+    "NVDA": "0xBB61aaE284954d8871c449dBD5008e974517039b",
+    "TSMC": "0x111eCBE2bA11D9fD1AfDC49265d755B17EDcC0dA",
+    "MSFT": "0x39302A361f1B6f07912407dA50E7FAb2b1816F6F",
+    "GOOGL": "0xDb52187861D08B55AEb6B5b85EFe06355E669736",
+    "RKLB": "0x9C323f8bb795EC1b33afC573c1a6A0Bb1Dc2ED1D",
+    "ISRG": "0x6A006eFE8d165788D18139FE3C3Ebc5609547832",
+    "XOM": "0x9c263812aE0b05C3a0dcDf6BF79972b4f3D303a3",
+    "ENPH": "0xd157C1EB497ec40666739C41ed4E5B8B70004324"
+  },
+  "oracle": "0x5886d6D7AA2c302f689F164A8fA819cF3608e53c",
+  "venue": "0x498E5e189D57142760eBd4cFE69F75116e8F45C8",
+  "vaultDeployer": "0x19f0BbAD896AEC750c6425346197f006908e6390",
+  "lens": "0xaF26400E815b9A1f441123cEdf633C4b05e9D4da",
+  "faucet": "0x923c01163499726578e1871B80Ca5468Fd1955ac",
+  "guardian": "0x47575C31c8146022FaB38dFF5ce883b5e55F6785",
+  "strategyFactory": "0x26E9d4D2A0eE38eD5596f05f6997840a8d4F68Ee",
+  "rebalanceEngine": "0x29d45b61Ee0b2f5aeC57Fa31fC8c3dbD0FC45EfF",
+  "marketplaceRegistry": "0x372D697F49e9a568aa2090cE52b71Fc90ba48567",
+  "maxPriceStaleness": 43200,
+  "deskSpreadBps": 10,
+  "defaultMaxSlippageBps": 100,
+  "checkpointMinInterval": 1800,
+  "vaults": [
+    {
+      "symbol": "AIWIN",
+      "name": "AI Will Win",
+      "vault": "0x47D76795F6802361b92b03A57929c0282F9Cfdf9",
+      "token": "0x9a827c553BeE6141Dc6557e50b331e5E923A3586",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "CHIPS",
+      "name": "Semiconductor Boom",
+      "vault": "0xA53CdbDAaA291db15932c76a1c37B79112608B9a",
+      "token": "0x66daaD897c27429fa26D706d38225177978DdC60",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "CLOUD",
+      "name": "Cloud Titans",
+      "vault": "0x5bE77433B5a8EAFb0f3d78DBC612CCbea8aADcd1",
+      "token": "0xA999061896B06F3Faf0a612A9cA730901036dAB3",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "ROBOT",
+      "name": "Robotics Future",
+      "vault": "0x1b71617491C953aa640b26d590D7e670a749a890",
+      "token": "0xD08c6fF310DD5553198082bf85dF1579a955116B",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "ORBIT",
+      "name": "Space Race",
+      "vault": "0xD7063a9799dbAFC2BBF784Bf796D5240e5eCB5aD",
+      "token": "0xaAD122d0d7a965B7741b9A8eea1dBF0E30807782",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "COSMOS",
+      "name": "Deep Space Capital",
+      "vault": "0xe525b37Dec76c38764842AdA165c4F02c3643723",
+      "token": "0x1410914a44ed6411Ef03C90ea077FF6c3ff05F7c",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "GREEN",
+      "name": "Clean Energy Shift",
+      "vault": "0xF9dd3d2EFC0E9F533344071c9E4817A1C7bB1Af5",
+      "token": "0x31FDcDFD210c19dAfd3745D20413df7f17945474",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "BARBL",
+      "name": "Energy Barbell",
+      "vault": "0x14E157f899024ab42FDc088bb774495F162e7FAB",
+      "token": "0x1C3F1AB6389492b47BC42C1f7889A9a7a0CEcA0C",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "VOLT",
+      "name": "Grid Future",
+      "vault": "0xC52Fe235e31A0b8F486A3d8F36cA9432d592B523",
+      "token": "0x72140Dab5Fb73d12a21aE0D34F191c7C9dD5c3FC",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "SUPER",
+      "name": "Chip Supercycle",
+      "vault": "0x7223dEC2709dF8D1a40f09E12b8B320cd09B314b",
+      "token": "0x6f9DFD8f3e8ffFfE5522680529c2ce6ec2D12f11",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "BIGT",
+      "name": "Big Tech Core",
+      "vault": "0x28268D95921cBD6d00fB1F7BC7d40CDA46d7DEa2",
+      "token": "0x36fB1b2B33ea5e249F48ec1Ebee05f878D94d1AB",
+      "universe": "sandbox",
+      "depth": 1
+    },
+    {
+      "symbol": "ANDRO",
+      "name": "Humanoid Robotics",
+      "vault": "0xDB573c22176e162efb7EF96fb67f6DfE5DaaF1Df",
+      "token": "0x3B3E23c56af08000b4f0f753Ce4BF93406e7293B",
+      "universe": "sandbox",
+      "depth": 1
+    }
+  ],
+  "live": {
+    "usdg": "0x7E955252E15c84f5768B83c41a71F9eba181802F",
+    "usdgDecimals": 6,
+    "stockTokens": {
+      "TSLA": "0xC9f9c86933092BbbfFF3CCb4b105A4A94bf3Bd4E",
+      "AMZN": "0x5884aD2f920c162CFBbACc88C9C51AA75eC09E02",
+      "NFLX": "0x3b8262A63d25f0477c4DDE23F83cfe22Cb768C93",
+      "PLTR": "0x1FBE1a0e43594b3455993B5dE5Fd0A7A266298d0",
+      "AMD": "0x71178BAc73cBeb415514eB542a8995b82669778d"
+    },
+    "strategyFactory": "0x0000000000000000000000000000000000000000",
+    "venue": "0x0000000000000000000000000000000000000000",
+    "vaults": []
+  },
+  "socialRegistry": "0xe0FaeeD02db34f98Da05bab08E01a1473f8dC6F1"
+}

@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Modal } from "@/components/ui/modal";
 import { Notice } from "@/components/ui/notice";
 import { StatChip } from "@/components/ui/stat-chip";
 import { DepositRedeemPanel } from "@/components/deposit-redeem-panel";
@@ -70,6 +72,7 @@ export function StrategyDetailV2({
 
   const [toast, setToast] = useState<RebalanceEvent | null>(null);
   const [ghost, setGhost] = useState<WeightSnapshot | null>(null);
+  const [tradeOpen, setTradeOpen] = useState(false);
   const snapshot = useRef<WeightSnapshot>({ constituents: [], idle: undefined });
   const refetchDetail = useRef(detail.refetch);
   const refetchHistory = useRef(history.refetch);
@@ -275,16 +278,33 @@ export function StrategyDetailV2({
                 <RebalanceButton vault={vault} rebalanceNeeded={detail.rebalanceNeeded} onRebalanced={detail.refetch} />
               </Card>
 
-              <div className="advanced-disclosure__full">
-                <DepositRedeemPanel
-                  vault={vault}
-                  token={token}
-                  tokenDecimals={detail.decimals ?? 18}
-                  tokenSymbol={detail.symbol ?? "TOKEN"}
-                />
-              </div>
+              <Card className="advanced-disclosure__full advanced-disclosure__trade">
+                <div>
+                  <h3 className="text-title text-ink">Full swap</h3>
+                  <p className="text-caption text-ink-muted">
+                    Deposit or redeem in kind, one constituent at a time, with a slippage limit you set.
+                  </p>
+                </div>
+                <Button variant="secondary" onClick={() => setTradeOpen(true)}>
+                  Open swap
+                </Button>
+              </Card>
             </div>
           </details>
+
+          <Modal
+            open={tradeOpen}
+            onClose={() => setTradeOpen(false)}
+            title="Full swap"
+            description={`${detail.symbol ?? "This strategy"}: USDG or in-kind, with slippage protection.`}
+          >
+            <DepositRedeemPanel
+              vault={vault}
+              token={token}
+              tokenDecimals={detail.decimals ?? 18}
+              tokenSymbol={detail.symbol ?? "TOKEN"}
+            />
+          </Modal>
         </div>
 
         <div className="lg:sticky lg:top-28 lg:self-start">

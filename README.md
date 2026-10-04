@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/img/feng-logo.png" alt="Feng" width="300" />
+</p>
+
 # Feng
 
 **Turn what you believe into something others can discover and follow.** Feng is a social launchpad for tokenized investment strategies: write a thesis, back it with a weighted basket of tokenized stocks, publish it, and let other people follow it, participate in it, and track it. It runs on Robinhood Chain testnet (chain ID 46630, an Arbitrum L2).

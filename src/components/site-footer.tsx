@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { PixelWordmark } from "@/components/art/pixel-wordmark";
 import { FooterMotion } from "@/components/motion/footer-motion";
 import { HealthBadge } from "@/components/health-badge";
 import { ArrowUpRight, GridIcon, PlusIcon, WalletIcon } from "@/components/ui/icons";
@@ -33,7 +33,7 @@ export function SiteFooter() {
       </div>
       <div className="site-footer__inner">
         <Link className="site-footer__logo" href="/" aria-label="Feng home" data-footer-item="logo" data-reveal>
-          <PixelWordmark className="site-footer__wordmark" />
+          <Image src="/img/feng-logo.png" alt="Feng" width={401} height={150} className="site-footer__wordmark" />
         </Link>
         <ul className="site-footer__links">
           {INTERNAL_LINKS.map(({ href, label, Icon }) => (

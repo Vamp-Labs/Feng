@@ -17,6 +17,7 @@ const SITE_NAME = "Feng";
 const SITE_DESCRIPTION = "Rule-based, composable Strategy Tokens over tokenized stocks on Robinhood Chain.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://feng-thesis-launchpad.vercel.app"),
   applicationName: SITE_NAME,
   title: { default: `${SITE_NAME}: composable strategy tokens`, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
@@ -25,11 +26,13 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: `${SITE_NAME}: composable strategy tokens`,
     description: SITE_DESCRIPTION,
+    images: [{ url: "/img/feng-logo.png", width: 401, height: 150, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary",
     title: `${SITE_NAME}: composable strategy tokens`,
     description: SITE_DESCRIPTION,
+    images: ["/img/feng-logo.png"],
   },
 };
 

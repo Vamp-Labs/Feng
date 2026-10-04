@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { PixelWordmark } from "@/components/art/pixel-wordmark";
 import { NavLinks } from "@/components/nav-links";
 import { NetworkBanner } from "@/components/network-banner";
 import { WalletConnect } from "@/components/wallet-connect";
@@ -12,7 +12,7 @@ export function NavBar() {
     <header className="site-header">
       <nav className="nav" aria-label="Primary">
         <Link href="/" className="nav__brand" aria-label="Feng home">
-          <PixelWordmark className="nav__logo" />
+          <Image src="/img/feng-logo.png" alt="Feng" width={401} height={150} priority className="nav__logo" />
         </Link>
         <NavLinks />
         <div className="nav__end">

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { LayoutGroup, m } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Modal } from "@/components/ui/modal";
 import { Notice } from "@/components/ui/notice";
 import { StatChip } from "@/components/ui/stat-chip";
 import { DepositRedeemPanel } from "@/components/deposit-redeem-panel";
@@ -38,13 +37,11 @@ import type { StrategyDetailData, StrategyDetailV2Fields } from "@/lib/hooks/use
 
 const GHOST_SECONDS = 9;
 
-type AdvancedTab = "performance" | "composition" | "rebalancing" | "swap";
+type SideTab = "participate" | "manage";
 
-const ADVANCED_TABS: { id: AdvancedTab; label: string }[] = [
-  { id: "performance", label: "Performance" },
-  { id: "composition", label: "Composition" },
-  { id: "rebalancing", label: "Rebalancing" },
-  { id: "swap", label: "Swap" },
+const SIDE_TABS: { id: SideTab; label: string }[] = [
+  { id: "participate", label: "Participate" },
+  { id: "manage", label: "Manage" },
 ];
 
 interface WeightSnapshot {
@@ -82,9 +79,8 @@ export function StrategyDetailV2({
 
   const [toast, setToast] = useState<RebalanceEvent | null>(null);
   const [ghost, setGhost] = useState<WeightSnapshot | null>(null);
-  const [advancedOpen, setAdvancedOpen] = useState(false);
-  const [advancedTab, setAdvancedTab] = useState<AdvancedTab>("performance");
-  const advancedTabsId = useId();
+  const [sideTab, setSideTab] = useState<SideTab>("participate");
+  const sideTabsId = useId();
   const snapshot = useRef<WeightSnapshot>({ constituents: [], idle: undefined });
   const refetchDetail = useRef(detail.refetch);
   const refetchHistory = useRef(history.refetch);
@@ -142,9 +138,18 @@ export function StrategyDetailV2({
               <div className="flex flex-none flex-wrap items-center gap-3">
                 {category ? <Badge tone="violet">{categoryLabel(category)}</Badge> : null}
                 <FollowButton target={vault} label={label} />
-                <a href="#participate" className="button" data-variant="primary" data-size="md">
+                <button
+                  type="button"
+                  className="button"
+                  data-variant="primary"
+                  data-size="md"
+                  onClick={() => {
+                    setSideTab("participate");
+                    document.getElementById("participate")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }}
+                >
                   Participate
-                </a>
+                </button>
               </div>
             </div>
             <StrategyTags tags={v2.tags} universe={v2.universe} />
@@ -235,48 +240,47 @@ export function StrategyDetailV2({
             />
           </Card>
 
-          <button type="button" className="advanced-trigger" onClick={() => setAdvancedOpen(true)}>
-            <span className="text-label text-ink">Advanced: rebalancing, composability &amp; full swap</span>
-            <span className="text-caption text-ink-muted" aria-hidden="true">
-              Open
-            </span>
-          </button>
+        </div>
 
-          <Modal
-            open={advancedOpen}
-            onClose={() => setAdvancedOpen(false)}
-            title="Advanced"
-            description={`${detail.symbol ?? "This strategy"}: performance, composition, rebalancing and swap.`}
-            size="lg"
+        <div className="lg:sticky lg:top-28 lg:self-start flex flex-col gap-6">
+          <LayoutGroup id={sideTabsId}>
+            <div role="tablist" aria-label="Strategy actions" className="segmented">
+              {SIDE_TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  id={`side-tab-${tab.id}`}
+                  aria-selected={sideTab === tab.id}
+                  aria-controls={`side-panel-${tab.id}`}
+                  className="segmented__option"
+                  onClick={() => setSideTab(tab.id)}
+                >
+                  {sideTab === tab.id ? (
+                    <m.span layoutId="side-tab-pill" className="segmented__pill" transition={SEGMENT_SPRING} />
+                  ) : null}
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </LayoutGroup>
+
+          <div
+            id="side-panel-participate"
+            role="tabpanel"
+            aria-labelledby="side-tab-participate"
+            hidden={sideTab !== "participate"}
+            className="flex flex-col gap-6"
           >
-            <LayoutGroup id={advancedTabsId}>
-              <div role="tablist" aria-label="Advanced strategy details" className="segmented">
-                {ADVANCED_TABS.map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    role="tab"
-                    id={`advanced-tab-${tab.id}`}
-                    aria-selected={advancedTab === tab.id}
-                    aria-controls={`advanced-panel-${tab.id}`}
-                    className="segmented__option"
-                    onClick={() => setAdvancedTab(tab.id)}
-                  >
-                    {advancedTab === tab.id ? (
-                      <m.span layoutId="advanced-tab-pill" className="segmented__pill" transition={SEGMENT_SPRING} />
-                    ) : null}
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-            </LayoutGroup>
+            <ParticipatePanel
+              vault={vault}
+              token={token}
+              tokenDecimals={detail.decimals ?? 18}
+              tokenSymbol={detail.symbol ?? "TOKEN"}
+              strategyName={detail.name ?? label}
+            />
 
-            <div
-              id="advanced-panel-performance"
-              role="tabpanel"
-              aria-labelledby="advanced-tab-performance"
-              hidden={advancedTab !== "performance"}
-            >
+            <Card>
               <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                 <h3 className="text-title text-ink">NAV per share</h3>
                 <span className="text-stat text-ink" data-testid="nav-per-share">
@@ -291,15 +295,9 @@ export function StrategyDetailV2({
                 label={`NAV per share history for ${label}`}
                 loading={history.isLoading}
               />
-            </div>
+            </Card>
 
-            <div
-              id="advanced-panel-composition"
-              role="tabpanel"
-              aria-labelledby="advanced-tab-composition"
-              hidden={advancedTab !== "composition"}
-              className="flex flex-col gap-6"
-            >
+            <Card className="flex flex-col gap-6">
               <div>
                 <h3 className="mb-5 text-title text-ink">Live weights vs target</h3>
                 <WeightsBar
@@ -319,15 +317,25 @@ export function StrategyDetailV2({
                   <NestedComposition constituents={detail.constituents} usdgDecimals={v2.usdgDecimals} />
                 </div>
               ) : null}
-            </div>
+            </Card>
+          </div>
 
-            <div
-              id="advanced-panel-rebalancing"
-              role="tabpanel"
-              aria-labelledby="advanced-tab-rebalancing"
-              hidden={advancedTab !== "rebalancing"}
-              className="flex flex-col gap-6"
-            >
+          <div
+            id="side-panel-manage"
+            role="tabpanel"
+            aria-labelledby="side-tab-manage"
+            hidden={sideTab !== "manage"}
+            className="flex flex-col gap-6"
+          >
+            <DepositRedeemPanel
+              vault={vault}
+              token={token}
+              tokenDecimals={detail.decimals ?? 18}
+              tokenSymbol={detail.symbol ?? "TOKEN"}
+            />
+
+            <Card className="flex flex-col gap-6">
+              <h3 className="text-title text-ink">Rebalancing</h3>
               <RebalanceSchedule
                 intervalSeconds={v2.rebalanceInterval}
                 lastTimestamp={v2.lastRebalanceTimestamp}
@@ -337,32 +345,8 @@ export function StrategyDetailV2({
                 explorerUrl={explorerUrl}
               />
               <RebalanceButton vault={vault} rebalanceNeeded={detail.rebalanceNeeded} onRebalanced={detail.refetch} />
-            </div>
-
-            <div
-              id="advanced-panel-swap"
-              role="tabpanel"
-              aria-labelledby="advanced-tab-swap"
-              hidden={advancedTab !== "swap"}
-            >
-              <DepositRedeemPanel
-                vault={vault}
-                token={token}
-                tokenDecimals={detail.decimals ?? 18}
-                tokenSymbol={detail.symbol ?? "TOKEN"}
-              />
-            </div>
-          </Modal>
-        </div>
-
-        <div className="lg:sticky lg:top-28 lg:self-start">
-          <ParticipatePanel
-            vault={vault}
-            token={token}
-            tokenDecimals={detail.decimals ?? 18}
-            tokenSymbol={detail.symbol ?? "TOKEN"}
-            strategyName={detail.name ?? label}
-          />
+            </Card>
+          </div>
         </div>
       </div>
       <RebalanceMoment event={toast} explorerUrl={explorerUrl} usdgDecimals={v2.usdgDecimals} onDismiss={dismissToast} />

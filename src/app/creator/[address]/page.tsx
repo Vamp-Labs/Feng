@@ -10,7 +10,7 @@ export default async function CreatorProfilePage({ params }: PageProps<"/creator
   }
 
   return (
-    <div className="page-body">
+    <div className="page-body page-body--detail">
       <CreatorProfile address={address} />
     </div>
   );

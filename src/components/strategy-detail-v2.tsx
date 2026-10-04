@@ -275,12 +275,14 @@ export function StrategyDetailV2({
                 <RebalanceButton vault={vault} rebalanceNeeded={detail.rebalanceNeeded} onRebalanced={detail.refetch} />
               </Card>
 
-              <DepositRedeemPanel
-                vault={vault}
-                token={token}
-                tokenDecimals={detail.decimals ?? 18}
-                tokenSymbol={detail.symbol ?? "TOKEN"}
-              />
+              <div className="advanced-disclosure__full">
+                <DepositRedeemPanel
+                  vault={vault}
+                  token={token}
+                  tokenDecimals={detail.decimals ?? 18}
+                  tokenSymbol={detail.symbol ?? "TOKEN"}
+                />
+              </div>
             </div>
           </details>
         </div>

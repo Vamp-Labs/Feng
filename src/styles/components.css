@@ -457,12 +457,14 @@
     cursor: pointer;
     transition: color var(--duration-sm) ease;
 
-    &[aria-pressed="true"] {
+    &[aria-pressed="true"],
+    &[aria-selected="true"] {
       color: var(--color-on-mint);
     }
 
     @media (hover: hover) and (pointer: fine) {
-      &[aria-pressed="false"]:hover {
+      &[aria-pressed="false"]:hover,
+      &[aria-selected="false"]:hover {
         color: #fff;
       }
     }

@@ -1,0 +1,147 @@
+.hero {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: calc(var(--u) * 508);
+  text-align: center;
+}
+
+.scope {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: calc(var(--u) * 112);
+}
+
+.tag {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--u) * 29);
+  margin: 0;
+  padding-inline: calc(var(--u) * 10.9);
+  border: 1px solid rgb(42 255 165 / 0.72);
+  border-radius: 999px;
+  background: #050e34;
+  color: var(--tag-green);
+  font-size: max(12px, calc(var(--u) * 16));
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: calc(var(--u) * 12.3) 0 0;
+  color: #fdfdfd;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 60);
+  font-weight: 700;
+  line-height: 1.006;
+  letter-spacing: 0.0025em;
+  text-shadow: 0 2px 4px rgb(0 0 0 / 0.3);
+}
+
+.line {
+  display: block;
+  white-space: nowrap;
+}
+
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0 0.04em 0.16em;
+  margin: 0 -0.04em -0.16em;
+}
+
+.mask + .mask {
+  margin-left: 0.2em;
+}
+
+.word {
+  position: relative;
+  display: inline-block;
+}
+
+.accentGreen {
+  background: linear-gradient(180deg, #9affd0 6%, #35f9a5 52%, #12a56b 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+.lede {
+  margin: calc(var(--u) * 17.8) 0 0;
+  max-width: calc(var(--u) * 548);
+  color: #f4f8ff;
+  font-size: max(14px, calc(var(--u) * 18));
+  font-weight: 400;
+  line-height: 1.4167;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--u) * 24);
+  margin-top: calc(var(--u) * 22);
+}
+
+.cta {
+  min-width: calc(var(--u) * 172);
+  height: max(44px, calc(var(--u) * 53));
+  padding-inline: calc(var(--u) * 28);
+  border-radius: calc(var(--u) * 13);
+  font-size: max(14px, calc(var(--u) * 17));
+}
+
+@media (max-width: 999px) {
+  .hero {
+    position: relative;
+    height: auto;
+    padding: calc(var(--nav-height) + var(--v) * 36) calc(var(--v) * 22) calc(var(--v) * 28);
+    overflow: clip;
+  }
+
+  .scope {
+    padding-top: 0;
+  }
+
+  .tag {
+    height: calc(var(--v) * 28);
+    padding-inline: calc(var(--v) * 14);
+    font-size: calc(var(--v) * 14);
+  }
+
+  .title {
+    margin-top: calc(var(--v) * 16);
+    font-size: calc(var(--v) * 38);
+    line-height: 1.06;
+    text-wrap: balance;
+  }
+
+  .line {
+    white-space: normal;
+  }
+
+  .lede {
+    margin-top: calc(var(--v) * 16);
+    max-width: calc(var(--v) * 340);
+    font-size: calc(var(--v) * 15.5);
+    line-height: 1.45;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+    gap: calc(var(--v) * 12);
+    margin-top: calc(var(--v) * 22);
+  }
+
+  .cta {
+    min-width: calc(var(--v) * 150);
+    height: max(44px, calc(var(--v) * 46));
+    padding-inline: calc(var(--v) * 20);
+    border-radius: calc(var(--v) * 12);
+    font-size: calc(var(--v) * 15);
+  }
+}

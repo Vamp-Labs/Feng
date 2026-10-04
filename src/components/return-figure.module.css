@@ -1,0 +1,15 @@
+.figure {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  color: var(--color-ink-muted);
+}
+
+.figure[data-sign="up"] {
+  color: var(--green);
+}
+
+.figure[data-sign="down"] {
+  color: var(--color-danger);
+}

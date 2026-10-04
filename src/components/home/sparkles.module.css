@@ -1,0 +1,90 @@
+.field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dot {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(var(--u) * var(--size) * 1.45);
+  height: calc(var(--u) * var(--size) * 1.45);
+  margin: calc(var(--u) * var(--size) * -0.725);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle closest-side,
+    #fff 0%,
+    color-mix(in srgb, var(--c) 75%, #fff) 28%,
+    var(--c) 52%,
+    transparent 100%
+  );
+  opacity: var(--o);
+}
+
+.field[data-paused] .dot {
+  animation-play-state: paused;
+}
+
+.rise {
+  animation: sparkle-rise var(--dur) linear var(--delay) infinite;
+  opacity: 0;
+}
+
+.twinkle {
+  animation: sparkle-twinkle var(--dur) ease-in-out var(--delay) infinite;
+}
+
+@keyframes sparkle-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  15% {
+    opacity: var(--o);
+    transform: translate3d(calc(var(--drift) * 0.15), calc(var(--rise) * -0.15), 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift), calc(var(--rise) * -1), 0) scale(0.5);
+  }
+}
+
+@keyframes sparkle-twinkle {
+  0%,
+  100% {
+    opacity: calc(var(--o) * 0.25);
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: var(--o);
+    transform: scale(1.2);
+  }
+}
+
+@media (max-width: 999px) {
+  .dot {
+    left: var(--mx);
+    top: var(--my);
+    width: calc(var(--v) * var(--size) * 1.2);
+    height: calc(var(--v) * var(--size) * 1.2);
+    margin: calc(var(--v) * var(--size) * -0.6);
+  }
+
+  .dot[data-extra] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .twinkle {
+    animation: none;
+    opacity: calc(var(--o) * 0.6);
+  }
+
+  .rise:nth-child(n + 13),
+  .twinkle:nth-child(n + 13) {
+    display: none;
+  }
+}

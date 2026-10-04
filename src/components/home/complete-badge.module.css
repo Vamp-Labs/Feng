@@ -1,0 +1,103 @@
+.badge {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  pointer-events: none;
+}
+
+.depth,
+.float {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.art {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.track,
+.arc,
+.glow {
+  fill: none;
+  stroke-linecap: butt;
+}
+
+.track {
+  stroke: #8aa6b6;
+  stroke-width: 3.2;
+  opacity: 0.78;
+}
+
+.arc,
+.glow {
+  stroke-dasharray: calc(var(--nested, 0) * var(--reveal, 1)) 100;
+}
+
+.arc {
+  stroke: url(#nested-ring-fill);
+  stroke-width: 3.4;
+}
+
+.glow {
+  stroke: #2dff9a;
+  stroke-width: 9;
+  opacity: 0.32;
+}
+
+.text {
+  position: absolute;
+  left: 46%;
+  top: 44%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-15deg) skewX(-6deg);
+}
+
+.value {
+  font-size: calc(var(--u) * 19.5);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.caption {
+  margin-top: calc(var(--u) * 3);
+  font-size: max(9px, calc(var(--u) * 12.5));
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 999px) {
+  .badge {
+    left: auto;
+    right: var(--m-right);
+    top: var(--m-top);
+    width: calc(var(--v) * 100);
+    height: calc(var(--v) * 74.5);
+  }
+
+  .value {
+    font-size: calc(var(--v) * 14);
+  }
+
+  .caption {
+    margin-top: calc(var(--v) * 2);
+    font-size: max(9px, calc(var(--v) * 9));
+  }
+}

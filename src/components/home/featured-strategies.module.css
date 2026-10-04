@@ -1,0 +1,19 @@
+.ghost {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border: 1px solid #313777;
+  border-radius: calc(var(--u) * 22.5);
+  background: linear-gradient(158deg, rgb(33 36 108 / 0.7), rgb(7 17 56 / 0.8) 46%, rgb(8 18 76 / 0.8));
+  opacity: 0.6;
+}
+
+.ghost[data-active] {
+  opacity: 1;
+}
+
+@media (max-width: 999px) {
+  .ghost {
+    border-radius: calc(var(--v) * 17);
+  }
+}

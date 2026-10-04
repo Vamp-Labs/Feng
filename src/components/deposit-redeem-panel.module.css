@@ -1,0 +1,194 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badgeLink {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.route {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: var(--hairline) solid rgb(121 134 168 / 0.35);
+  border-radius: var(--radius-md);
+  background: rgb(1 8 28 / 0.5);
+}
+
+.routeOption {
+  min-block-size: 2.25rem;
+  padding: 0.35rem 0.75rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  font: 600 0.8125rem / 1.2 var(--font-sans);
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  transition:
+    color var(--duration-sm) ease,
+    background-color var(--duration-sm) ease;
+}
+
+.routeOption[aria-pressed="true"] {
+  background: rgb(143 86 255 / 0.28);
+  color: var(--ink);
+}
+
+.routeOption:focus-visible,
+.slippageOption:focus-visible,
+.maxButton:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.amountRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.maxButton {
+  padding: 0.125rem 0.5rem;
+  border: var(--hairline) solid rgb(121 134 168 / 0.45);
+  border-radius: var(--radius-pill);
+  background: none;
+  font: 600 0.6875rem / 1.4 var(--font-sans);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+  cursor: pointer;
+}
+
+.slippage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.slippageLabel {
+  margin-inline-end: auto;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-ink-muted);
+}
+
+.slippageOption {
+  min-block-size: 2rem;
+  padding: 0.25rem 0.75rem;
+  border: var(--hairline) solid rgb(121 134 168 / 0.45);
+  border-radius: var(--radius-pill);
+  background: none;
+  font: 600 0.8125rem / 1.2 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  transition:
+    color var(--duration-sm) ease,
+    border-color var(--duration-sm) ease,
+    background-color var(--duration-sm) ease;
+}
+
+.slippageOption[aria-pressed="true"] {
+  border-color: var(--green);
+  background: rgb(53 249 165 / 0.12);
+  color: var(--ink);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0.5rem 0 0;
+}
+
+.detailRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8125rem;
+}
+
+.detailLabel {
+  margin: 0;
+  color: var(--color-ink-muted);
+}
+
+.detailValue {
+  margin: 0;
+  overflow-wrap: anywhere;
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.tokenList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.tokenRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tokenKind {
+  color: var(--color-ink-muted);
+}
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  align-items: stretch;
+}
+
+.notice > button,
+.noticeActions {
+  align-self: flex-start;
+}
+
+.noticeActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.resultLink {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+}
+
+.select {
+  inline-size: 100%;
+}

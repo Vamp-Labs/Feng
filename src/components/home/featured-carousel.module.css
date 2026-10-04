@@ -1,0 +1,146 @@
+.root {
+  position: absolute;
+  inset: calc(var(--u) * 508) 0 auto 0;
+  height: calc(var(--u) * 435);
+}
+
+.viewport {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--u) * 51);
+  width: calc(var(--u) * 342.3);
+  height: calc(var(--u) * 330.6);
+  translate: -50% 0;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  perspective: 1200px;
+  touch-action: pan-y;
+}
+
+.arrow {
+  position: absolute;
+  top: calc(var(--u) * 137.8);
+  z-index: 5;
+}
+
+.arrowLeft {
+  left: calc(50% + var(--u) * -666);
+}
+
+.arrowRight {
+  left: calc(50% + var(--u) * 606);
+}
+
+.arrowButton {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: max(44px, calc(var(--u) * 60));
+  height: max(44px, calc(var(--u) * 60));
+  padding: 0;
+  border: 1.7px solid #fff;
+  border-radius: 50%;
+  background: #020a1e;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 240ms var(--ease-out);
+}
+
+.glyph {
+  width: calc(var(--u) * 24);
+  height: calc(var(--u) * 24);
+  transition: translate 240ms var(--ease-out);
+}
+
+.more {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--u) * 393);
+  translate: -50% 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-inline: 12px;
+  color: var(--ink-muted);
+  font-size: max(14px, calc(var(--u) * 16));
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 240ms var(--ease-out);
+}
+
+.moreGlyph {
+  width: 16px;
+  height: 16px;
+  transition: translate 240ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .more:hover {
+    color: #fff;
+  }
+
+  .more:hover .moreGlyph {
+    translate: 3px 0;
+  }
+
+  .arrowButton:hover {
+    background: #0a1736;
+  }
+
+  .arrowLeft .arrowButton:hover .glyph {
+    translate: -3px 0;
+  }
+
+  .arrowRight .arrowButton:hover .glyph {
+    translate: 3px 0;
+  }
+}
+
+@media (max-width: 999px) {
+  .root {
+    position: relative;
+    inset: auto;
+    height: calc(var(--v) * 460);
+    margin-top: calc(var(--v) * 10);
+  }
+
+  .more {
+    top: auto;
+    bottom: 0;
+  }
+
+  .viewport {
+    top: calc(var(--v) * 54);
+    width: calc(var(--v) * 260);
+    height: calc(var(--v) * 251);
+  }
+
+  .arrow {
+    top: auto;
+    bottom: calc(var(--v) * 56);
+  }
+
+  .arrowLeft {
+    left: calc(50% - var(--v) * 56);
+  }
+
+  .arrowRight {
+    left: calc(50% + var(--v) * 8);
+  }
+
+  .arrowButton {
+    width: calc(var(--v) * 48);
+    height: calc(var(--v) * 48);
+  }
+
+  .glyph {
+    width: calc(var(--v) * 22);
+    height: calc(var(--v) * 22);
+  }
+}

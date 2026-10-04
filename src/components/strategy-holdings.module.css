@@ -1,0 +1,133 @@
+.root {
+  --bar-height: 8px;
+  --label-lines: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-inline-size: 0;
+}
+
+.root[data-size="stage"] {
+  --bar-height: max(8px, calc(var(--cu, var(--u)) * 10));
+  --label-lines: 2;
+  gap: max(6px, calc(var(--cu, var(--u)) * 9));
+}
+
+.bar {
+  display: grid;
+  gap: 2px;
+  block-size: var(--bar-height);
+}
+
+.segment {
+  --seg: var(--color-tone-slate);
+  min-inline-size: 0;
+  border-radius: 3px;
+  background: var(--seg);
+  transform-origin: left center;
+}
+
+.segment[data-tone="orchid"] {
+  --seg: var(--color-orchid);
+}
+
+.segment[data-tone="periwinkle"] {
+  --seg: var(--color-periwinkle);
+}
+
+.segment[data-tone="sky"] {
+  --seg: var(--color-tone-blue);
+}
+
+.segment[data-tone="ink"] {
+  --seg: var(--color-tone-silver);
+}
+
+.segment[data-tone="slate"] {
+  --seg: var(--color-tone-slate);
+}
+
+.segment[data-tone="layered"] {
+  background:
+    repeating-linear-gradient(45deg, rgb(205 196 255 / 0.55) 0 1px, transparent 1px 4px),
+    var(--color-tone-layered-fill);
+  box-shadow: inset 0 0 0 1px rgb(167 139 250 / 0.7);
+}
+
+.segment[data-tone="empty"] {
+  background: var(--color-track);
+}
+
+.root[data-state="loading"] .segment {
+  animation: holdings-pulse 1.4s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root[data-state="loading"] .segment {
+    animation: none;
+  }
+}
+
+.labels {
+  display: grid;
+  gap: 2px;
+  min-block-size: calc(var(--label-lines) * 1.25em);
+  font-size: max(11px, calc(var(--cu, var(--u)) * 13));
+  line-height: 1.25;
+}
+
+.root[data-size="tile"] .labels {
+  font-size: 0.6875rem;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--ink-muted);
+}
+
+.label[data-hidden] {
+  visibility: hidden;
+}
+
+.ticker {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-inline-size: 0;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.tickerText {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+.layers {
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+  color: var(--color-lilac-soft);
+}
+
+.percent {
+  font-size: 0.92em;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes holdings-pulse {
+  from {
+    opacity: 0.55;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,74 @@
+.tile {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  pointer-events: none;
+}
+
+.depth,
+.pointer,
+.float {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.halo {
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow), transparent 72%);
+  opacity: 0.3;
+}
+
+.art {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .float {
+    animation: tile-float var(--float-seconds, 7s) ease-in-out calc(-1 * var(--float-phase, 0s)) infinite alternate;
+  }
+
+  :global([data-paused]) .float {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes tile-float {
+  from {
+    transform: translateY(0) rotate(0);
+  }
+
+  to {
+    transform: translateY(calc(var(--float-y, 0) * 1% * var(--float-amp, 1)))
+      rotate(calc(var(--float-rotate, 0) * 1deg * var(--float-amp, 1)));
+  }
+}
+
+@media (max-width: 999px) {
+  .tile {
+    --float-amp: 0.5;
+    left: var(--m-left, auto);
+    right: var(--m-right, auto);
+    top: var(--m-top, auto);
+    width: calc(var(--v) * var(--m-width, 60));
+    height: auto;
+    aspect-ratio: var(--aspect);
+  }
+
+  .tile[data-mobile="hidden"] {
+    display: none;
+  }
+}
+
+@media (max-width: 999px) {
+  .tile[data-float-mobile="off"] .float {
+    animation: none;
+  }
+}

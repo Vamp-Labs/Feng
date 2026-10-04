@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
+import { LayoutGroup, m } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Modal } from "@/components/ui/modal";
 import { Notice } from "@/components/ui/notice";
@@ -29,6 +29,7 @@ import { formatSharePrice, usdgToNumber } from "@/lib/discovery-format";
 import { formatUsdg, shortenAddress } from "@/lib/format";
 import { nestedHolding, stockHolding, type Holding } from "@/lib/holding-tones";
 import { markRebalanceSeen } from "@/lib/watchlist";
+import { SEGMENT_SPRING } from "@/lib/motion";
 import { useFollowerCount } from "@/lib/hooks/use-follower-count";
 import { useNavHistory } from "@/lib/hooks/use-nav-history";
 import { useProfile } from "@/lib/hooks/use-profile";
@@ -36,6 +37,15 @@ import { useRebalanceEvents, type RebalanceEvent } from "@/lib/hooks/use-rebalan
 import type { StrategyDetailData, StrategyDetailV2Fields } from "@/lib/hooks/use-strategy-detail";
 
 const GHOST_SECONDS = 9;
+
+type AdvancedTab = "performance" | "composition" | "rebalancing" | "swap";
+
+const ADVANCED_TABS: { id: AdvancedTab; label: string }[] = [
+  { id: "performance", label: "Performance" },
+  { id: "composition", label: "Composition" },
+  { id: "rebalancing", label: "Rebalancing" },
+  { id: "swap", label: "Swap" },
+];
 
 interface WeightSnapshot {
   constituents: (number | undefined)[];
@@ -72,7 +82,9 @@ export function StrategyDetailV2({
 
   const [toast, setToast] = useState<RebalanceEvent | null>(null);
   const [ghost, setGhost] = useState<WeightSnapshot | null>(null);
-  const [tradeOpen, setTradeOpen] = useState(false);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [advancedTab, setAdvancedTab] = useState<AdvancedTab>("performance");
+  const advancedTabsId = useId();
   const snapshot = useRef<WeightSnapshot>({ constituents: [], idle: undefined });
   const refetchDetail = useRef(detail.refetch);
   const refetchHistory = useRef(history.refetch);
@@ -223,29 +235,72 @@ export function StrategyDetailV2({
             />
           </Card>
 
-          <details className="advanced-disclosure">
-            <summary className="advanced-disclosure__summary">
-              <span className="text-label text-ink">Advanced: rebalancing, composability &amp; full swap</span>
-            </summary>
-            <div className="advanced-disclosure__body">
-              <Card>
-                <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <h3 className="text-title text-ink">NAV per share</h3>
-                  <span className="text-stat text-ink" data-testid="nav-per-share">
-                    {navPerShare === undefined ? "--" : formatSharePrice(navPerShare)}
-                  </span>
-                </div>
-                <Sparkline
-                  className="spark--fluid"
-                  points={history.series}
-                  width={640}
-                  height={128}
-                  label={`NAV per share history for ${label}`}
-                  loading={history.isLoading}
-                />
-              </Card>
+          <button type="button" className="advanced-trigger" onClick={() => setAdvancedOpen(true)}>
+            <span className="text-label text-ink">Advanced: rebalancing, composability &amp; full swap</span>
+            <span className="text-caption text-ink-muted" aria-hidden="true">
+              Open
+            </span>
+          </button>
 
-              <Card>
+          <Modal
+            open={advancedOpen}
+            onClose={() => setAdvancedOpen(false)}
+            title="Advanced"
+            description={`${detail.symbol ?? "This strategy"}: performance, composition, rebalancing and swap.`}
+            size="lg"
+          >
+            <LayoutGroup id={advancedTabsId}>
+              <div role="tablist" aria-label="Advanced strategy details" className="segmented">
+                {ADVANCED_TABS.map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    role="tab"
+                    id={`advanced-tab-${tab.id}`}
+                    aria-selected={advancedTab === tab.id}
+                    aria-controls={`advanced-panel-${tab.id}`}
+                    className="segmented__option"
+                    onClick={() => setAdvancedTab(tab.id)}
+                  >
+                    {advancedTab === tab.id ? (
+                      <m.span layoutId="advanced-tab-pill" className="segmented__pill" transition={SEGMENT_SPRING} />
+                    ) : null}
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </LayoutGroup>
+
+            <div
+              id="advanced-panel-performance"
+              role="tabpanel"
+              aria-labelledby="advanced-tab-performance"
+              hidden={advancedTab !== "performance"}
+            >
+              <div className="mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 className="text-title text-ink">NAV per share</h3>
+                <span className="text-stat text-ink" data-testid="nav-per-share">
+                  {navPerShare === undefined ? "--" : formatSharePrice(navPerShare)}
+                </span>
+              </div>
+              <Sparkline
+                className="spark--fluid"
+                points={history.series}
+                width={640}
+                height={128}
+                label={`NAV per share history for ${label}`}
+                loading={history.isLoading}
+              />
+            </div>
+
+            <div
+              id="advanced-panel-composition"
+              role="tabpanel"
+              aria-labelledby="advanced-tab-composition"
+              hidden={advancedTab !== "composition"}
+              className="flex flex-col gap-6"
+            >
+              <div>
                 <h3 className="mb-5 text-title text-ink">Live weights vs target</h3>
                 <WeightsBar
                   constituents={detail.constituents}
@@ -256,54 +311,47 @@ export function StrategyDetailV2({
                 <div className="mt-5">
                   <PriceFeedStatus fresh={v2.priceFresh} oldestUpdatedAt={v2.oldestPriceUpdatedAt} />
                 </div>
-              </Card>
+              </div>
 
               {depth >= 2 ? (
-                <Card>
+                <div>
                   <h3 className="mb-5 text-title text-ink">Nested composition</h3>
                   <NestedComposition constituents={detail.constituents} usdgDecimals={v2.usdgDecimals} />
-                </Card>
-              ) : null}
-
-              <Card className="flex flex-col gap-6">
-                <h3 className="text-title text-ink">Rebalancing</h3>
-                <RebalanceSchedule
-                  intervalSeconds={v2.rebalanceInterval}
-                  lastTimestamp={v2.lastRebalanceTimestamp}
-                  needed={detail.rebalanceNeeded}
-                  paused={v2.paused}
-                  lastLog={lastLog}
-                  explorerUrl={explorerUrl}
-                />
-                <RebalanceButton vault={vault} rebalanceNeeded={detail.rebalanceNeeded} onRebalanced={detail.refetch} />
-              </Card>
-
-              <Card className="advanced-disclosure__full advanced-disclosure__trade">
-                <div>
-                  <h3 className="text-title text-ink">Full swap</h3>
-                  <p className="text-caption text-ink-muted">
-                    Deposit or redeem in kind, one constituent at a time, with a slippage limit you set.
-                  </p>
                 </div>
-                <Button variant="secondary" onClick={() => setTradeOpen(true)}>
-                  Open swap
-                </Button>
-              </Card>
+              ) : null}
             </div>
-          </details>
 
-          <Modal
-            open={tradeOpen}
-            onClose={() => setTradeOpen(false)}
-            title="Full swap"
-            description={`${detail.symbol ?? "This strategy"}: USDG or in-kind, with slippage protection.`}
-          >
-            <DepositRedeemPanel
-              vault={vault}
-              token={token}
-              tokenDecimals={detail.decimals ?? 18}
-              tokenSymbol={detail.symbol ?? "TOKEN"}
-            />
+            <div
+              id="advanced-panel-rebalancing"
+              role="tabpanel"
+              aria-labelledby="advanced-tab-rebalancing"
+              hidden={advancedTab !== "rebalancing"}
+              className="flex flex-col gap-6"
+            >
+              <RebalanceSchedule
+                intervalSeconds={v2.rebalanceInterval}
+                lastTimestamp={v2.lastRebalanceTimestamp}
+                needed={detail.rebalanceNeeded}
+                paused={v2.paused}
+                lastLog={lastLog}
+                explorerUrl={explorerUrl}
+              />
+              <RebalanceButton vault={vault} rebalanceNeeded={detail.rebalanceNeeded} onRebalanced={detail.refetch} />
+            </div>
+
+            <div
+              id="advanced-panel-swap"
+              role="tabpanel"
+              aria-labelledby="advanced-tab-swap"
+              hidden={advancedTab !== "swap"}
+            >
+              <DepositRedeemPanel
+                vault={vault}
+                token={token}
+                tokenDecimals={detail.decimals ?? 18}
+                tokenSymbol={detail.symbol ?? "TOKEN"}
+              />
+            </div>
           </Modal>
         </div>
 

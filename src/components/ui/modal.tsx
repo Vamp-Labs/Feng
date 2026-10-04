@@ -10,10 +10,11 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   description?: string;
+  size?: "md" | "lg";
   children: ReactNode;
 }
 
-export function Modal({ open, onClose, title, description, children }: ModalProps) {
+export function Modal({ open, onClose, title, description, size = "md", children }: ModalProps) {
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<Element | null>(null);
@@ -61,6 +62,7 @@ export function Modal({ open, onClose, title, description, children }: ModalProp
             aria-labelledby={titleId}
             tabIndex={-1}
             className="modal-panel"
+            data-size={size}
             data-lenis-prevent=""
             initial={{ opacity: 0, y: 12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}

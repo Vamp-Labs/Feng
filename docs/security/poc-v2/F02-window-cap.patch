@@ -1,0 +1,46 @@
+--- contracts/v2/venue/OracleDesk.sol
++++ contracts/v2/venue/OracleDesk.sol
+@@ -20,6 +20,8 @@
+ 
+     uint256 private constant BPS = 10_000;
+     uint16 public constant MAX_SPREAD_BPS = 100;
++    uint256 public constant OUTFLOW_WINDOW = 1 hours;
++    uint256 public constant WINDOW_CAP_MULTIPLE = 10;
+ 
+     address public immutable usdg;
+     address public immutable oracle;
+@@ -33,6 +35,8 @@
+     uint256 private _withdrawnUsdg;
+     uint256 private _buyUsdgIn;
+     uint256 private _sellUsdgOut;
++    uint256 private _windowStart;
++    uint256 private _windowOut;
+ 
+     mapping(address => Mode) public mode;
+     mapping(address => uint8) public tokenDecimals;
+@@ -94,6 +98,7 @@
+             amountOut = Math.mulDiv(received, price, unit);
+             _checkOut(amountOut, minAmountOut);
+             _checkCap(amountOut);
++            _trackOutflow(amountOut);
+             if (IERC20(usdg).balanceOf(address(this)) < amountOut) revert InsufficientLiquidity(usdg);
+             if (mode[token] == Mode.Mint) IMintableStockToken(token).burn(address(this), received);
+             _sellUsdgOut += amountOut;
+@@ -227,6 +232,17 @@
+         if (cap != 0 && usdgAmount > cap) revert SwapTooLarge(usdgAmount, cap);
+     }
+ 
++    function _trackOutflow(uint256 usdgOut) private {
++        uint256 cap = maxSwapUsdg * WINDOW_CAP_MULTIPLE;
++        if (cap == 0) return;
++        if (block.timestamp >= _windowStart + OUTFLOW_WINDOW) {
++            _windowStart = block.timestamp;
++            _windowOut = 0;
++        }
++        _windowOut += usdgOut;
++        if (_windowOut > cap) revert SwapTooLarge(_windowOut, cap);
++    }
++
+     function _checkOut(uint256 amountOut, uint256 minAmountOut) private pure {
+         if (amountOut == 0) revert ZeroAmount();
+         if (amountOut < minAmountOut) revert VenueSlippage(amountOut, minAmountOut);

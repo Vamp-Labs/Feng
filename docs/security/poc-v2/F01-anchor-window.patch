@@ -1,0 +1,46 @@
+--- contracts/v2/oracle/FengAggregator.sol	2026-10-03 23:23:51.830352804 +0700
++++ contracts/v2/oracle/FengAggregator.sol	2026-10-03 23:23:51.856665694 +0700
+@@ -12,6 +12,7 @@
+     bytes32 public constant SHOCK_ROLE = keccak256("SHOCK_ROLE");
+     uint16 public constant MAX_DEVIATION_CAP_BPS = 5000;
+     uint16 public constant MAX_SHOCK_CAP_BPS = 5000;
++    uint256 public constant ANCHOR_WINDOW = 1 hours;
+ 
+     uint8 private immutable _decimals;
+     string private _description;
+@@ -19,6 +20,7 @@
+     int256 public latestAnswer;
+     int256 public anchorAnswer;
+     uint256 private _updatedAt;
++    uint256 private _anchorSetAt;
+     uint80 private _roundId;
+     uint16 public maxDeviationBps;
+     uint16 public maxShockBps;
+@@ -44,6 +46,7 @@
+         anchorAnswer = initialAnswer;
+         _roundId = 1;
+         _updatedAt = block.timestamp;
++        _anchorSetAt = block.timestamp;
+         emit ParamsSet(maxDeviationBps_, maxShockBps_);
+         emit AnswerUpdated(initialAnswer, 1, block.timestamp);
+     }
+@@ -54,7 +57,10 @@
+         if (_distance(answer, anchor) > _bound(anchor, maxDeviationBps)) {
+             revert DeviationTooHigh(answer, anchor, maxDeviationBps);
+         }
+-        anchorAnswer = answer;
++        if (block.timestamp >= _anchorSetAt + ANCHOR_WINDOW) {
++            anchorAnswer = answer;
++            _anchorSetAt = block.timestamp;
++        }
+         _push(answer);
+     }
+ 
+@@ -76,6 +82,7 @@
+     function forceAnswer(int256 answer) external onlyRole(DEFAULT_ADMIN_ROLE) {
+         if (answer <= 0) revert InvalidAnswer(answer);
+         anchorAnswer = answer;
++        _anchorSetAt = block.timestamp;
+         uint256 round = _push(answer);
+         emit AnswerForced(answer, round, msg.sender);
+     }

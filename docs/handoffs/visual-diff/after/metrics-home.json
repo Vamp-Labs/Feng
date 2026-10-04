@@ -1,0 +1,53 @@
+[
+  {
+    "name": "home",
+    "w": 1440,
+    "vw": 1425,
+    "scrollW": 1425,
+    "overflow": false,
+    "over": [],
+    "h": 1892,
+    "alert": null,
+    "consoleMsgs": [
+      "warning: Error generating app config:  PrivyApiError: Invalid Privy app ID\n    at n_.fetch (http://localhost:3002/_next/static/chunks/0nl35ph314db6.js:1:283489)\n    at a"
+    ],
+    "exceptions": []
+  },
+  {
+    "name": "home",
+    "w": 1024,
+    "vw": 1009,
+    "scrollW": 1009,
+    "overflow": false,
+    "over": [],
+    "h": 1391,
+    "alert": null,
+    "consoleMsgs": [
+      "warning: Error generating app config:  PrivyApiError: Invalid Privy app ID\n    at n_.fetch (http://localhost:3002/_next/static/chunks/0nl35ph314db6.js:1:283489)\n    at a"
+    ],
+    "exceptions": []
+  },
+  {
+    "name": "home",
+    "w": 390,
+    "vw": 390,
+    "scrollW": 390,
+    "overflow": false,
+    "over": [
+      "article.featured-card-module__TAhnqq__card r=561",
+      "div.featured-card-module__TAhnqq__face r=561",
+      "div.featured-card-module__TAhnqq__logo r=488",
+      "h3.featured-card-module__TAhnqq__name r=546",
+      "p.featured-card-module__TAhnqq__nav r=547",
+      "span.featured-card-module__TAhnqq__navValue r=476",
+      "span.return-figure-module__5Ed8pW__figure featured-card r=518",
+      "div.featured-card-module__TAhnqq__holdings r=523"
+    ],
+    "h": 1992,
+    "alert": null,
+    "consoleMsgs": [
+      "warning: Error generating app config:  PrivyApiError: Invalid Privy app ID\n    at n_.fetch (http://localhost:3002/_next/static/chunks/0nl35ph314db6.js:1:283489)\n    at a"
+    ],
+    "exceptions": []
+  }
+]

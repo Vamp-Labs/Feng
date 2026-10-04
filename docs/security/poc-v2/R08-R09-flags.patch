@@ -1,0 +1,18 @@
+--- contracts/v2/StrategyVaultV2.sol
++++ contracts/v2/StrategyVaultV2.sol
+@@ -511,9 +511,13 @@
+         returns (bool timeBased, bool thresholdBased)
+     {
+         timeBased = supply > 0 && block.timestamp >= uint256(_lastRebalanceTimestamp) + rebalanceInterval;
+-        if (total == 0) return (timeBased, false);
++        if (total == 0 || supply == 0) return (timeBased, false);
++        uint256 tol = _tolerance(total);
+         for (uint256 i = 0; i < cs.length; i++) {
+-            if ((cur[i] * BPS) / total > _effectiveMax(cs[i].targetWeightBps)) {
++            if (
++                (cur[i] * BPS) / total > _effectiveMax(cs[i].targetWeightBps)
++                    && cur[i] > (total * cs[i].targetWeightBps) / BPS + tol
++            ) {
+                 return (timeBased, true);
+             }
+         }

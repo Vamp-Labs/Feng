@@ -1,0 +1,190 @@
+:root {
+  color-scheme: dark;
+  --bg: #000718;
+  --bg-footer: #01081a;
+  --green: #35f9a5;
+  --tag-green: #2affa5;
+  --nav-active: #e879f9;
+  --ink: #fafafe;
+  --ink-muted: #cdd6ec;
+  --ink-faint: #aab5c9;
+  --focus-ring: #a78bfa;
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  --shell: 65.25rem;
+  --gutter: clamp(1.25rem, 5vw, 2.5rem);
+  --nav-height: 4.5rem;
+  --nav-clearance: 6.5rem;
+  --page-wash: radial-gradient(
+    ellipse 120rem 24rem at 50% 0,
+    #13165e 0%,
+    #0c1143 25%,
+    #060c2e 50%,
+    #02081f 75%,
+    var(--bg) 100%
+  );
+}
+
+@theme static {
+  --color-bg: #000718;
+  --color-night: #060c34;
+  --color-surface: #07123e;
+  --color-surface-raised: #0c1352;
+  --color-glass: #0a1250;
+
+  --color-ink: #fafafe;
+  --color-ink-secondary: #dae4f8;
+  --color-ink-muted: #aab5c9;
+  --color-ink-subtle: #8f9bb8;
+  --color-on-mint: #01081c;
+
+  --color-mint: #35f9a5;
+  --color-mint-deep: #085c3a;
+  --color-violet: #7c25e0;
+  --color-indigo: #4322ba;
+  --color-orchid: #e879f9;
+  --color-periwinkle: #9ccaff;
+  --color-lilac: #8f56ff;
+  --color-amber: #fdbc00;
+  --color-danger: #ff8a96;
+  --color-focus: #a78bfa;
+  --color-amber-soft: #ffe9a8;
+  --color-mint-soft: #aaffd9;
+  --color-tone-blue: #4f86f5;
+  --color-tone-silver: #c6d3e4;
+  --color-tone-slate: #8e9bbd;
+  --color-tone-layered: #9786ff;
+  --color-tone-layered-fill: #3b2aa8;
+  --color-lilac-soft: #cdc4ff;
+
+  --color-line: #363d80;
+  --color-line-strong: #7986a8;
+  --color-track: rgb(150 160 255 / 0.12);
+
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-btn: 12px;
+  --radius-lg: 20px;
+  --radius-card: 28px;
+  --radius-pill: 9999px;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-section: clamp(4rem, 3rem + 5vw, 7.5rem);
+
+  --hairline: 1px;
+  --shadow-card: 0 18px 50px -18px rgb(0 0 0 / 0.6), inset 0 1px 0 rgb(130 130 255 / 0.18);
+  --shadow-card-lift: 0 26px 60px -20px rgb(0 0 0 / 0.7), 0 0 44px -10px rgb(124 37 224 / 0.45),
+    inset 0 1px 0 rgb(150 150 255 / 0.28);
+  --shadow-mint: 0 8px 28px -6px rgb(53 249 165 / 0.55);
+  --shadow-violet: 0 8px 28px -6px rgb(120 110 255 / 0.55);
+
+  --duration-xs: 120ms;
+  --duration-sm: 240ms;
+  --duration-md: 360ms;
+}
+
+@utility text-hero {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: 0.0025em;
+}
+
+@utility text-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 1.5rem + 3vw, 3.875rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: 0.0025em;
+}
+
+@utility text-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+@utility text-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.625rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+@utility text-stat {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2.125rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility text-stat-sm {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility text-hud {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility text-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.45;
+  color: var(--color-ink-secondary);
+}
+
+@utility text-body {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+@utility text-label {
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+@utility text-caption {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+@utility text-micro {
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+@utility text-overline {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}

@@ -1,0 +1,83 @@
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+    background: var(--bg);
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: var(--ink);
+    background: var(--bg);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  ::selection {
+    background: rgb(143 86 255 / 0.55);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}
+
+.page {
+  --u: min(1px, calc(100cqw / 1440));
+  --v: clamp(0.82px, calc(100cqw / 390), 1.35px);
+  container-type: inline-size;
+  position: relative;
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim="pending"] [data-reveal] {
+    opacity: 0;
+    visibility: hidden;
+    animation: reveal-failsafe 0s linear 1.8s forwards;
+  }
+
+  [data-anim="pending"] [data-word-scene] {
+    transform: translateY(110%);
+    animation: word-failsafe 0s linear 1.8s forwards;
+  }
+}
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes word-failsafe {
+  to {
+    transform: none;
+  }
+}

@@ -1,0 +1,30 @@
+.top {
+  position: relative;
+  height: calc(var(--u) * 943);
+  background:
+    radial-gradient(
+      ellipse calc(var(--u) * 1774) calc(var(--u) * 389) at calc(50% - var(--u) * 38) 0,
+      #13165e 0%,
+      #0c1143 25%,
+      #060c2e 50%,
+      #02081f 75%,
+      var(--bg) 100%
+    ),
+    var(--bg);
+}
+
+@media (max-width: 999px) {
+  .top {
+    height: auto;
+    padding-bottom: calc(var(--v) * 20);
+    background:
+      radial-gradient(
+        ellipse calc(var(--v) * 520) calc(var(--v) * 300) at 50% 0,
+        #13165e 0%,
+        #0c1143 25%,
+        #060c2e 55%,
+        var(--bg) 100%
+      ),
+      var(--bg);
+  }
+}

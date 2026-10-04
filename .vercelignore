@@ -1,0 +1,11 @@
+/broadcast
+/cache
+/out
+/lib
+/contracts
+/script
+/scripts
+/docs
+/dev
+/node_modules
+.env*
